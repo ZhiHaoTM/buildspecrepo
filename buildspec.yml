@@ -5,9 +5,9 @@ phases:
     commands:    
       - export AWS_ACCESS_KEY_ID=$image_scanning_access_key  
       - export AWS_SECRET_ACCESS_KEY=$image_scanning_secret_access_key 
-      - export REGION=ap-southeast-1  
+      - export REGION=us-east-1  
       - echo "Logging into Amazon ECR..."    
-      - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin $aws_account_id.dkr.ecr.ap-southeast-1.amazonaws.com    
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $aws_account_id.dkr.ecr.us-east-1.amazonaws.com    
   pre_build:    
     commands:    
       - echo "Setting up TMAS CLI..."    
@@ -18,7 +18,7 @@ phases:
     commands:  
       - export TMAS_API_KEY=$tmas_api_key 
       - echo "Scanning Docker images for malware..."    
-      - ./tmas scan registry:$aws_account_id.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-container-repo:latest --region=ap-southeast-1 --malwareScan > vulnerabilitiesandmalware.json 2>/dev/null  
+      - ./tmas scan registry:$aws_account_id.dkr.ecr.us-east-1.amazonaws.com/ecr-container-repo:latest --region=us-east-1 --malwareScan > vulnerabilitiesandmalware.json 2>/dev/null  
   post_build:    
     commands:    
       - echo "Build and scan completed."  
